@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ГУ СВС | Правительство СВС</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #eef2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1f3a6b;
+            color: white;
+            padding: 18px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-area h1 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .logo-area p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .user-status {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 28px 32px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+            border: 1px solid #e9edf2;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f3a6b;
+            border-left: 5px solid #ffb347;
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2c3e4e;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ccd7e4;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            background: #fefefe;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1f3a6b;
+            box-shadow: 0 0 0 3px rgba(31,58,107,0.1);
+        }
+
+        button {
+            background: #1f3a6b;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        button:hover {
+            background: #0e2a4f;
+            transform: scale(0.98);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #1f3a6b;
+            color: #1f3a6b;
+        }
+
+        .member-list {
+            margin-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .member-item {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .member-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .member-photo {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e2e8f0;
+            border: 2px solid #ffb347;
+        }
+
+        .badge {
+            background: #e6f0ff;
+            color: #1f3a6b;
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .document-view {
+            background: #fef7e8;
+            border-left: 6px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .photo-preview {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .document-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 16px;
+            margin-top: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .camera-btn {
+            background: #4a6a8b;
+            font-size: 0.8rem;
+        }
+
+        .hidden-file {
+            display: none;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-content img {
+            width: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+        }
+
+        .success-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2e7d32;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            z-index: 1100;
+            animation: fadeInOut 2.5s ease forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(20px); visibility: hidden; }
+        }
+
+        .small-btn {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            background: #e2e8f0;
+            color: #1f3a6b;
+            border-radius: 30px;
+            cursor: pointer;
+            border: none;
+        }
+        .small-btn.danger {
+            background: #fee2e2;
+            color: #b3403a;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #1f3a6b;
+        }
+        @media (max-width: 720px) {
+            .grid-2col { grid-template-columns: 1fr; }
+            .main-content { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="app-container">
+        <div class="header">
+            <div class="logo-area">
+                <h1>ГУ СВС</h1>
+                <p>Государственные услуги • Облачная система</p>
+            </div>
+            <div class="user-status" v-if="currentUser">
+                <span>👤 {{ currentUser.fullName }} ({{ getRoleName(currentUser.role) }})</span>
+                <button @click="logout" style="margin-left: 15px; background: none; border: 1px solid white; padding: 4px 12px;">Выйти</button>
+            </div>
+            <div class="user-status" v-else>
+                <span>🔐 Требуется авторизация</span>
+            </div>
+        </div>
+
+        <div class="main-content" v-if="loading">
+            <div class="loading">Загрузка данных из облака...</div>
+        </div>
+
+        <div class="main-content" v-else-if="!currentUser">
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <div class="card-title">Вход в систему ГУ СВС</div>
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" v-model="loginForm.login" placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" v-model="loginForm.password" placeholder="Введите пароль">
+                </div>
+                <button @click="doLogin" style="width: 100%">Войти</button>
+                <p style="margin-top: 15px; font-size: 0.75rem; color:#5e6f8d; text-align:center;">* Председатель: логин 2347 / пароль 2203</p>
+            </div>
+        </div>
+
+        <div class="main-content" v-else-if="currentUser.role === 'chairman'">
+            <!-- Панель Председателя -->
+            <div class="card">
+                <div class="flex-between">
+                    <div class="card-title">👑 Панель Председателя Правительства СВС</div>
+                    <div class="badge">Высшие полномочия</div>
+                </div>
+                <p><strong>{{ currentUser.fullName }}</strong> — Вы можете назначать Правителя и Министра строительства.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">➕ Назначить руководителя</div>
+                <div class="grid-2col">
+                    <div>
+                        <div class="form-group">
+                            <label>Роль</label>
+                            <select v-model="newPerson.role">
+                                <option value="governor">Правитель СВС</option>
+                                <option value="minister">Министр строительства</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ФИО полностью</label>
+                            <input v-model="newPerson.fullName" placeholder="Иванов Иван Иванович">
+                        </div>
+                        <div class="form-group">
+                            <label>Логин (уникальный)</label>
+                            <input v-model="newPerson.login" placeholder="придумайте логин">
+                        </div>
+                        <div class="form-group">
+                            <label>Пароль</label>
+                            <input type="text" v-model="newPerson.password" placeholder="придумайте пароль">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>📸 Фото сотрудника</label>
+                            <button type="button" @click="triggerFileUpload" class="camera-btn">📁 Выбрать фото</button>
+                            <input type="file" ref="fileInput" accept="image/*" @change="onFileSelected" class="hidden-file">
+                            <div v-if="newPerson.photoPreview">
+                                <img :src="newPerson.photoPreview" class="photo-preview">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>📄 Текст документа о назначении</label>
+                            <textarea rows="2" v-model="newPerson.documentText" placeholder="Указ / Постановление о назначении..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>🖼️ Фото документа</label>
+                            <button type="button" @click="triggerDocUpload" class="camera-btn">📎 Загрузить фото документа</button>
+                            <input type="file" ref="docFileInput" accept="image/*" @change="onDocFileSelected" class="hidden-file">
+                            <div v-if="newPerson.documentImagePreview">
+                                <img :src="newPerson.documentImagePreview" class="photo-preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button @click="addOfficial" style="margin-top: 10px; width: 100%;">✅ Назначить</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Назначенные руководители</div>
+                <div v-if="officialsList.length === 0" style="color: gray;">Пока нет назначенных</div>
+                <div class="member-list">
+                    <div v-for="user in officialsList" :key="user.login" class="member-item">
+                        <div class="member-info">
+                            <img v-if="user.photoUrl" :src="user.photoUrl" class="member-photo">
+                            <div v-else style="width:55px;height:55px;background:#e2e8f0;border-radius:50%;display:flex;align-items:center;justify-content:center;">📷</div>
+                            <div>
+                                <strong>{{ user.fullName }}</strong><br>
+                                <span class="badge">{{ getRoleName(user.role) }}</span>
+                                <div style="font-size: 0.7rem;">Логин: {{ user.login }} | Пароль: {{ user.password }}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="small-btn" @click="editUserDocument(user)">📄 Документ</button>
+                            <button class="small-btn danger" @click="removeUser(user.login)">🗑 Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚙️ Общий документ Председателя</div>
+                <div class="form-group">
+                    <label>Текст документа</label>
+                    <textarea v-model="chairmanDocText" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Фото документа</label>
+                    <button @click="triggerChairmanDocUpload" class="camera-btn">📎 Загрузить фото</button>
+                    <input type="file" ref="chairmanDocInput" accept="image/*" @change="onChairmanDocSelected" class="hidden-file">
+                    <div v-if="chairmanDocImgPreview">
+                        <img :src="chairmanDocImgPreview" class="photo-preview">
+                        <button @click="chairmanDocImgPreview = null; chairmanDocImgData = null" class="small-btn danger">Удалить фото</button>
+                    </div>
+                </div>
+                <button @click="saveChairmanDocument">💾 Сохранить</button>
+            </div>
+        </div>
+
+        <div class="main-content" v-else-if="currentUser.role === 'governor' || currentUser.role === 'minister'">
+            <div class="card">
+                <div class="card-title">📄 Ваш персональный документ</div>
+                <div class="document-view">
+                    <div class="member-info" style="margin-bottom: 15px;">
+                        <img v-if="currentUser.photoUrl" :src="currentUser.photoUrl" class="member-photo">
+                        <div v-else style="width:55px;height:55px;background:#ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;">📷</div>
+                        <div>
+                            <h3>{{ currentUser.fullName }}</h3>
+                            <p><strong>{{ getRoleName(currentUser.role) }}</strong></p>
+                        </div>
+                    </div>
+                    <div v-if="currentUser.documentText">{{ currentUser.documentText }}</div>
+                    <div v-if="currentUser.documentImageData">
+                        <img :src="currentUser.documentImageData" class="document-img" @click="openModal(currentUser.documentImageData)">
+                    </div>
+                    <div v-if="!currentUser.documentText && !currentUser.documentImageData" style="color:#b1624b;">Документ ещё не загружен</div>
+                </div>
+                <hr>
+                <div class="flex-between">
+                    <div>Логин: {{ currentUser.login }} | Пароль: {{ currentUser.passwordOriginal }}</div>
+                    <div class="badge">ГУ СВС</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📢 Документ Председателя</div>
+                <div class="document-view">
+                    <div v-if="chairmanData.documentText">{{ chairmanData.documentText }}</div>
+                    <div v-if="chairmanData.documentImageData">
+                        <img :src="chairmanData.documentImageData" class="document-img" @click="openModal(chairmanData.documentImageData)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="modalImage" class="modal" @click="closeModal">
+        <div class="modal-content"><img :src="modalImage"></div>
+    </div>
+
+    <div v-if="toastMessage" class="success-toast">{{ toastMessage }}</div>
+
+    <!-- Модалка редактирования документа -->
+    <div v-if="editingUser" class="modal" @click.self="closeEditModal">
+        <div class="modal-content" style="background: white; padding: 24px; border-radius: 24px; max-width: 500px;">
+            <h3>Документ: {{ editingUser.fullName }}</h3>
+            <textarea v-model="editDocText" rows="3" style="width:100%; margin: 15px 0;"></textarea>
+            <div v-if="editDocImage"><img :src="editDocImage" style="max-width:100%; max-height:150px;"></div>
+            <button @click="triggerEditDocUpload" class="small-btn">📎 Заменить фото</button>
+            <button @click="editDocImage = null; editDocImageData = null" class="small-btn danger">Удалить фото</button>
+            <input type="file" ref="editDocInput" accept="image/*" @change="onEditDocSelected" class="hidden-file">
+            <div class="flex-between" style="margin-top: 20px;">
+                <button @click="saveUserDoc">💾 Сохранить</button>
+                <button @click="closeEditModal" class="small-btn">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDlIX6AwtP9r8v0RFQc02n0JpEad-h220g",
+        authDomain: "gu-svs.firebaseapp.com",
+        projectId: "gu-svs",
+        storageBucket: "gu-svs.firebasestorage.app",
+        messagingSenderId: "117406745612",
+        appId: "1:117406745612:web:311ec877827c60d9ffda29"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Vue приложение
+    const appVue = new Vue({
+        el: '#app',
+        data: {
+            loading: true,
+            usersList: [],
+            currentUser: null,
+            loginForm: { login: '', password: '' },
+            newPerson: {
+                role: 'governor',
+                fullName: '',
+                login: '',
+                password: '',
+                photoPreview: null,
+                photoUrl: '',
+                documentText: '',
+                documentImageData: '',
+                documentImagePreview: null
+            },
+            chairmanDocText: '',
+            chairmanDocImgPreview: null,
+            chairmanDocImgData: null,
+            modalImage: null,
+            toastMessage: '',
+            editingUser: null,
+            editDocText: '',
+            editDocImage: null,
+            editDocImageData: null
+        },
+        computed: {
+            officialsList() {
+                return this.usersList.filter(u => u.role === 'governor' || u.role === 'minister');
+            },
+            chairmanData() {
+                const chairman = this.usersList.find(u => u.role === 'chairman');
+                return chairman ? { documentText: chairman.documentText, documentImageData: chairman.documentImageData } : {};
+            }
+        },
+        async mounted() {
+            await this.loadUsers();
+            this.loading = false;
+        },
+        methods: {
+            showToast(msg) {
+                this.toastMessage = msg;
+                setTimeout(() => this.toastMessage = '', 2500);
+            },
+            getRoleName(role) {
+                const names = { chairman: 'Председатель', governor: 'Правитель', minister: 'Министр строительства' };
+                return names[role] || role;
+            },
+            async loadUsers() {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                this.usersList = [];
+                querySnapshot.forEach(doc => {
+                    this.usersList.push({ id: doc.id, ...doc.data() });
+                });
+            },
+            async doLogin() {
+                const user = this.usersList.find(u => u.login === this.loginForm.login && u.password === this.loginForm.password);
+                if (user) {
+                    this.currentUser = { ...user, passwordOriginal: user.password };
+                    if (this.currentUser.role === 'chairman') {
+                        this.chairmanDocText = user.documentText || '';
+                        this.chairmanDocImgData = user.documentImageData || null;
+                        this.chairmanDocImgPreview = user.documentImageData || null;
+                    }
+                    this.showToast(`Добро пожаловать, ${user.fullName}`);
+                } else {
+                    alert('Неверный логин или пароль');
+                }
+            },
+            logout() {
+                this.currentUser = null;
+                this.loginForm = { login: '', password: '' };
+            },
+            async uploadFile(file, path) {
+                const fileRef = ref(storage, path);
+                await uploadBytes(fileRef, file);
+                return await getDownloadURL(fileRef);
+            },
+            async addOfficial() {
+                if (!this.newPerson.login || !this.newPerson.password || !this.newPerson.fullName) {
+                    alert('Заполните все поля');
+                    return;
+                }
+                if (this.usersList.find(u => u.login === this.newPerson.login)) {
+                    alert('Логин уже существует');
+                    return;
+                }
+                const userData = {
+                    login: this.newPerson.login,
+                    password: this.newPerson.password,
+                    role: this.newPerson.role,
+                    fullName: this.newPerson.fullName,
+                    documentText: this.newPerson.documentText || '',
+                    documentImageData: this.newPerson.documentImageData || '',
+                    photoUrl: this.newPerson.photoUrl || ''
+                };
+                await setDoc(doc(db, "users", this.newPerson.login), userData);
+                await this.loadUsers();
+                this.newPerson = {
+                    role: 'governor', fullName: '', login: '', password: '',
+                    photoPreview: null, photoUrl: '', documentText: '', documentImageData: '', documentImagePreview: null
+                };
+                this.showToast('Руководитель назначен');
+            },
+            async removeUser(login) {
+                if (confirm('Удалить пользователя?')) {
+                    await deleteDoc(doc(db, "users", login));
+                    await this.loadUsers();
+                    if (this.currentUser?.login === login) this.logout();
+                    this.showToast('Пользователь удалён');
+                }
+            },
+            async saveChairmanDocument() {
+                const chairman = this.usersList.find(u => u.role === 'chairman');
+                if (chairman) {
+                    await updateDoc(doc(db, "users", chairman.login), {
+                        documentText: this.chairmanDocText,
+                        documentImageData: this.chairmanDocImgData || ''
+                    });
+                    if (this.currentUser.role === 'chairman') {
+                        this.currentUser.documentText = this.chairmanDocText;
+                        this.currentUser.documentImageData = this.chairmanDocImgData;
+                    }
+                    await this.loadUsers();
+                    this.showToast('Документ председателя сохранён');
+                }
+            },
+            async onFileSelected(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = await this.uploadFile(file, `photos/${Date.now()}_${file.name}`);
+                    this.newPerson.photoPreview = url;
+                    this.newPerson.photoUrl = url;
+                }
+            },
+            async onDocFileSelected(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = await this.uploadFile(file, `documents/${Date.now()}_${file.name}`);
+                    this.newPerson.documentImagePreview = url;
+                    this.newPerson.documentImageData = url;
+                }
+            },
+            async onChairmanDocSelected(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = await this.uploadFile(file, `chairman/${Date.now()}_${file.name}`);
+                    this.chairmanDocImgPreview = url;
+                    this.chairmanDocImgData = url;
+                }
+            },
+            triggerFileUpload() { this.$refs.fileInput.click(); },
+            triggerDocUpload() { this.$refs.docFileInput.click(); },
+            triggerChairmanDocUpload() { this.$refs.chairmanDocInput.click(); },
+            editUserDocument(user) {
+                this.editingUser = user;
+                this.editDocText = user.documentText || '';
+                this.editDocImage = user.documentImageData || null;
+                this.editDocImageData = user.documentImageData || null;
+            },
+            async saveUserDoc() {
+                if (this.editingUser) {
+                    await updateDoc(doc(db, "users", this.editingUser.login), {
+                        documentText: this.editDocText,
+                        documentImageData: this.editDocImageData || ''
+                    });
+                    await this.loadUsers();
+                    if (this.currentUser?.login === this.editingUser.login) {
+                        this.currentUser.documentText = this.editDocText;
+                        this.currentUser.documentImageData = this.editDocImageData;
+                    }
+                    this.showToast('Документ обновлён');
+                    this.closeEditModal();
+                }
+            },
+            async onEditDocSelected(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = await this.uploadFile(file, `userdocs/${Date.now()}_${file.name}`);
+                    this.editDocImage = url;
+                    this.editDocImageData = url;
+                }
+            },
+            triggerEditDocUpload() { this.$refs.editDocInput.click(); },
+            closeEditModal() {
+                this.editingUser = null;
+                this.editDocText = '';
+                this.editDocImage = null;
+                this.editDocImageData = null;
+            },
+            openModal(img) { this.modalImage = img; },
+            closeModal() { this.modalImage = null; }
+        }
+    });
+</script>
+</body>
+</html>
